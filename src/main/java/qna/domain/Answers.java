@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Embeddable
 public class Answers {
@@ -27,5 +28,10 @@ public class Answers {
 
     public void add (Answer answer) {
         answers.add(answer);
+    }
+
+    public Stream<DeleteHistory> mapToDeleteHistory() {
+        return answers.stream()
+                .map(Answer::delete);
     }
 }
