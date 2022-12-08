@@ -1,6 +1,6 @@
-package qna.domain;
+package step1.qna.domain;
 
-import qna.CannotDeleteException;
+import step1.qna.CannotDeleteException;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

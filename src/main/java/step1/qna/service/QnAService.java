@@ -1,17 +1,17 @@
-package qna.service;
+package step1.qna.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import qna.CannotDeleteException;
-import qna.NotFoundException;
-import qna.domain.*;
+import step1.qna.CannotDeleteException;
+import step1.qna.NotFoundException;
+import step1.qna.domain.AnswerRepository;
+import step1.qna.domain.Question;
+import step1.qna.domain.QuestionRepository;
+import step1.qna.domain.User;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service("qnaService")
 public class QnAService {
