@@ -14,7 +14,7 @@ public class QuestionTest {
     public static final Question Q1 = new Question("title1", "contents1").writeBy(UserTest.JAVAJIGI);
     public static final Question Q2 = new Question("title2", "contents2").writeBy(UserTest.SANJIGI);
 
-    @DisplayName("질문 삭제시 질문의 작성자가 아닐 경우 NotAuthorizedDeleteException 발생")
+    @DisplayName("질문 삭제시 질문의 작성자가 아닐 경우 CannotDeleteException 발생")
     @ParameterizedTest
     @MethodSource("provideQuestionAndNonWriter")
     public void 삭제_검증_테스트 (Question question, User writer) {
