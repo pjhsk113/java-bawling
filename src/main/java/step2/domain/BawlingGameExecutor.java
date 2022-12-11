@@ -6,4 +6,8 @@ public class BawlingGameExecutor {
     public void play() {
         Player player = InputView.inputPlayerName();
     }
+
+    private void frameView() {
+
+    }
 }
