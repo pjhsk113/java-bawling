@@ -24,4 +24,8 @@ public class Score {
     public boolean isStrike() {
         return score == MAX_SCORE;
     }
+
+    public int sum(Score value) {
+        return score + value.score;
+    }
 }
