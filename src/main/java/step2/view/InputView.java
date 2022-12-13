@@ -17,8 +17,8 @@ public class InputView {
         return Player.from(SCANNER.nextLine());
     }
 
-    public static Score inputFramePitching(int round) {
-        System.out.println(String.format(INPUT_PITCHING_MESSAGE, round));
+    public static Score inputFrameScore(int frame) {
+        System.out.println(String.format(INPUT_PITCHING_MESSAGE, frame));
         return Score.from(SCANNER.nextInt());
     }
 }
