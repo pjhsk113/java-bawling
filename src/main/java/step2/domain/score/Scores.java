@@ -3,8 +3,8 @@ package step2.domain.score;
 import step2.domain.Score;
 
 public abstract class Scores {
-    private final Score firstScore;
-    private final Score secondScore;
+    final Score firstScore;
+    final Score secondScore;
 
     Scores(Score firstScore, Score secondScore) {
         this.firstScore = firstScore;
