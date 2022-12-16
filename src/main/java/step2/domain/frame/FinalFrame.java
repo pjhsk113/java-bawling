@@ -11,4 +11,9 @@ public class FinalFrame extends Frame {
     public static FinalFrame of(int frame, Scores scores) {
         return new FinalFrame(frame, scores);
     }
+
+    @Override
+    public Frame next(Scores scores) {
+        return null;
+    }
 }
