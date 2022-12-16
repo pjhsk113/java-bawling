@@ -10,4 +10,14 @@ public abstract class Frame {
         this.frame = frame;
         this.scores = scores;
     }
+
+    abstract public Frame next(Scores scores);
+
+    public int getFrame() {
+        return frame;
+    }
+
+    public Scores getScores() {
+        return scores;
+    }
 }
