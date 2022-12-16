@@ -1,6 +1,7 @@
 package step2.domain.score;
 
 import step2.domain.Score;
+import step2.domain.ScoreType;
 
 public abstract class Scores {
     final Score firstScore;
@@ -11,9 +12,14 @@ public abstract class Scores {
         this.secondScore = secondScore;
     }
 
-    static void validate(Score firstScore, Score secondScore) {
-        if (firstScore.sum(secondScore) > 10) {
-            throw new IllegalArgumentException("프레임 별 투구 점수는 10을 넘을 수 없습니다.");
-        }
+    abstract public Scores next(Score score);
+    abstract public boolean isFrameOver();
+
+    public boolean isStrike() {
+        return firstScore.isStrike();
+    }
+
+    public boolean isSpared() {
+        return firstScore.isSpare(secondScore);
     }
 }
