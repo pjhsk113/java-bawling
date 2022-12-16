@@ -25,6 +25,10 @@ public class Score {
         return score == MAX_SCORE;
     }
 
+    public boolean isSpare(Score secondScore) {
+        return sum(secondScore) == MAX_SCORE;
+    }
+
     public int sum(Score value) {
         return score + value.score;
     }
