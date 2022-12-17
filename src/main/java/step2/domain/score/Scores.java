@@ -1,7 +1,8 @@
 package step2.domain.score;
 
 import step2.domain.Score;
-import step2.domain.ScoreType;
+
+import java.util.stream.Stream;
 
 public abstract class Scores {
     final Score firstScore;
@@ -16,10 +17,14 @@ public abstract class Scores {
     abstract public boolean isFrameOver();
 
     public boolean isStrike() {
-        return firstScore.isStrike();
+        return firstScore != null && firstScore.isStrike();
     }
 
     public boolean isSpared() {
         return firstScore.isSpare(secondScore);
+    }
+
+    public Stream<Score> stream() {
+        return Stream.of(firstScore, secondScore);
     }
 }
