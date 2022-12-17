@@ -10,4 +10,8 @@ public enum ScoreType {
     ScoreType(String symbol) {
         this.symbol = symbol;
     }
+
+    public String getSymbol() {
+        return symbol;
+    }
 }

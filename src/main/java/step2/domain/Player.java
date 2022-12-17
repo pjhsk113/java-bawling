@@ -21,4 +21,8 @@ public class Player {
             throw new IllegalArgumentException("플레이어 이름을 입력해주세요.");
         }
     }
+
+    public String getName() {
+        return name;
+    }
 }
