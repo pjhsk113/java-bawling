@@ -4,12 +4,12 @@ import step2.domain.score.Scores;
 
 public class FinalFrame extends Frame {
 
-    private FinalFrame(int frame, Scores scores) {
-        super(frame, scores);
+    private FinalFrame(int frame, Scores scores, Frame prevFrame) {
+        super(frame, scores, prevFrame);
     }
 
-    public static FinalFrame of(int frame, Scores scores) {
-        return new FinalFrame(frame, scores);
+    public static FinalFrame of(int frame, Scores scores, Frame prevFrame) {
+        return new FinalFrame(frame, scores, prevFrame);
     }
 
     @Override

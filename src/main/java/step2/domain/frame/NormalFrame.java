@@ -6,34 +6,35 @@ import step2.domain.score.Scores;
 
 public class NormalFrame extends Frame {
 
-    private NormalFrame(int frame, Scores scores) {
-        super(frame, scores);
+    private NormalFrame(int frame, Scores scores, Frame prevFrame) {
+        super(frame, scores, prevFrame);
     }
 
-    public static NormalFrame of(int frame, Scores scores) {
-        return new NormalFrame(frame, scores);
+    public static NormalFrame of(int frame, Scores scores, Frame prevFrame) {
+        return new NormalFrame(frame, scores, prevFrame);
     }
 
     public static NormalFrame init() {
-        return NormalFrame.of(1, NormalScores.init());
+        return NormalFrame.of(1, NormalScores.init(), null);
     }
 
     @Override
     public Frame next(Scores scores) {
-        if (isFrameNotOver()) {
-            return of(frame, scores);
+        Frame currentFrame = of(frame, scores, prevFrame);
+        if (isFrameNotOver(scores)) {
+            return currentFrame;
         }
 
         int nextFrame = frame + 1;
 
         if (isNormalFrame(nextFrame)) {
-            return of(nextFrame, NormalScores.init());
+            return of(nextFrame, NormalScores.init(), currentFrame);
         }
 
-        return FinalFrame.of(nextFrame, FinalScores.init());
+        return FinalFrame.of(nextFrame, FinalScores.init(), currentFrame);
     }
 
-    private boolean isFrameNotOver() {
+    private boolean isFrameNotOver(Scores scores) {
         return !scores.isStrike() && !scores.isFrameOver();
     }
 
