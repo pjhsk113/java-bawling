@@ -29,7 +29,16 @@ public class Score {
         return sum(secondScore) == MAX_SCORE;
     }
 
+    public boolean isGutter() {
+        return score == MIN_SCORE;
+    }
+
     public int sum(Score value) {
         return score + value.score;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d", score);
     }
 }
