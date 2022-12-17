@@ -9,7 +9,7 @@ public class NormalScores extends Scores {
     }
 
     public static NormalScores of(Score firstScore, Score secondScore) {
-        validate(firstScore, secondScore);
+//        validate(firstScore, secondScore);
         return new NormalScores(firstScore, secondScore);
     }
 
