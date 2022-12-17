@@ -5,10 +5,12 @@ import step2.domain.score.Scores;
 public abstract class Frame {
     final int frame;
     final Scores scores;
+    final Frame prevFrame;
 
-    Frame(int frame, Scores scores) {
+    Frame(int frame, Scores scores, Frame prevFrame) {
         this.frame = frame;
         this.scores = scores;
+        this.prevFrame = prevFrame;
     }
 
     abstract public Frame next(Scores scores);
