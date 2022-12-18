@@ -20,7 +20,15 @@ public class FinalScores extends Scores {
 
     @Override
     public Scores next(Score score) {
-        return null;
+        if (firstScore == null) {
+            return of(score, null);
+        }
+
+        if (secondScore == null) {
+            return of(firstScore, score);
+        }
+
+        return new FinalScores(firstScore, secondScore, score);
     }
 
     @Override
