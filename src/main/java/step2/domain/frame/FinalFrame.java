@@ -14,6 +14,6 @@ public class FinalFrame extends Frame {
 
     @Override
     public Frame next(Scores scores) {
-        return null;
+        return of(frame, scores, prevFrame);
     }
 }
