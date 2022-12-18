@@ -35,14 +35,14 @@ public class BawlingGameExecutor {
     private void finalFrame(Frame frame, Player player, Frames frames) {
         Frame nextFrame = frameView(frame, player, frames);
         nextFrame = frameView(nextFrame, player, frames);
-
-        if (isExtraFrame(nextFrame)) {
+        Scores scores = nextFrame.getScores();
+        if (isExtraFrame(scores)) {
             frameView(nextFrame, player, frames);
         }
     }
 
-    private boolean isExtraFrame(Frame frame) {
-        return frame.getScores().isStrike() || frame.getScores().isSpared();
+    private boolean isExtraFrame(Scores scores) {
+        return scores.isStrike() || scores.isSpared();
     }
 
     private Frame frameView(Frame frame, Player player, Frames frames) {
