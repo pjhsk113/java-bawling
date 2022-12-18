@@ -22,4 +22,8 @@ public abstract class Frame {
     public Scores getScores() {
         return scores;
     }
+
+    public Frame getPrevFrame() {
+        return prevFrame;
+    }
 }
