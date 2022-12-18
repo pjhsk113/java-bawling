@@ -7,7 +7,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import step1.qna.CannotDeleteException;
-import qna.domain.*;
 import step1.qna.domain.*;
 
 import java.time.LocalDateTime;
