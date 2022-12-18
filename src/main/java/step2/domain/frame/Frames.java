@@ -1,7 +1,9 @@
 package step2.domain.frame;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Frames {
@@ -20,14 +22,19 @@ public class Frames {
     }
 
     public Frames addFrames(Frame currentFrame) {
-        if (currentFrame != null) {
-            frames.add(currentFrame);
-        }
+        List<Frame> frames = new ArrayList<>();
+        Frame frame = currentFrame;
 
-        return new Frames(frames);
+        while(frame != null) {
+            frames.add(frame);
+            frame = frame.getPrevFrame();
+        }
+        Collections.reverse(frames);
+        return from(frames);
     }
 
-    public Stream<Frame> stream() {
-        return frames.stream();
+    public Stream<Frame> frameInfo() {
+        return IntStream.range(0, 10)
+                .mapToObj(index -> index < frames.size() ? frames.get(index) : null);
     }
 }
