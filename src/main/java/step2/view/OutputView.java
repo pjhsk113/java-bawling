@@ -5,19 +5,16 @@ import step2.domain.Score;
 import step2.domain.ScoreType;
 import step2.domain.frame.Frame;
 import step2.domain.frame.Frames;
-import step2.domain.score.NormalScores;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.*;
 
 public class OutputView {
     private static final String ROUND_FORMAT = "| NAME |%s|";
-    private static final String SCORES_FORMAT = "| %4s |%s|";
+    private static final String SCORES_FORMAT = "| %4s |  %s|";
 
     private OutputView() {
     }
@@ -40,41 +37,45 @@ public class OutputView {
         return String.format(
                 SCORES_FORMAT,
                 player.getName(),
-                frames.stream()
-                        .map(frame -> String.format("%-4s", scoreOf(frame)))
+                frames.frameInfo()
+                        .map(frame -> String.format("%-4s", getScores(frame)))
                         .collect(joining("|  "))
         );
     }
 
-    private static String scoreOf(Frame frame) {
+    private static String getScores(Frame frame) {
         if (frame == null) {
             return "";
         }
 
-        return eachScoreOf(
+        return joiningScores(
                 frame.getScores()
                         .stream()
                         .collect(toList()));
     }
-    private static String eachScoreOf(List<Score> scores) {
+
+    private static String joiningScores(List<Score> scores) {
         return IntStream.range(0, scores.size())
                 .mapToObj(index -> scores.get(index) != null
-                        ? toScoreType(scores, index)
+                        ? convertSymbol(scores, index)
                         : null)
                 .filter(Objects::nonNull)
                 .collect(joining("|"));
     }
 
-    private static String toScoreType(List<Score> scores, int index) {
+    private static String convertSymbol(List<Score> scores, int index) {
         if (scores.get(index).isGutter()) {
             return ScoreType.GUTTER.getSymbol();
         }
-        if (scores.get(index).isStrike()) {
-            return ScoreType.STRIKE.getSymbol();
-        }
+
         if (index == 1 && scores.get(0).isSpare(scores.get(1))) {
             return ScoreType.SPARED.getSymbol();
         }
+
+        if (scores.get(index).isStrike()) {
+            return ScoreType.STRIKE.getSymbol();
+        }
+
         return scores.get(index).toString();
     }
 }
