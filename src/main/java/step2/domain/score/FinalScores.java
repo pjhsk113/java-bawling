@@ -11,7 +11,17 @@ public class FinalScores extends Scores {
     }
 
     public static FinalScores of(Score firstScore, Score secondScore) {
+        if (secondScore != null) {
+            validate(firstScore, secondScore);
+        }
+
         return new FinalScores(firstScore, secondScore, null);
+    }
+
+    private static void validate(Score firstScore, Score secondScore) {
+        if (!firstScore.isStrike() && firstScore.sum(secondScore) > 10) {
+            throw new IllegalArgumentException("프레임 별 투구 점수는 10을 넘을 수 없습니다.");
+        }
     }
 
     public static FinalScores init() {
