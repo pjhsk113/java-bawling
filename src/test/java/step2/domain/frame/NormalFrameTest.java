@@ -38,9 +38,9 @@ class NormalFrameTest {
         Frame frame4 = frame3.next(normalScore4);
 
         return Stream.of(
-                Arguments.of(frame2, score2),
-                Arguments.of(frame3, score2),
-                Arguments.of(frame4, score4)
+                Arguments.of(frame2, normalScore2),
+                Arguments.of(frame3, normalScore2),
+                Arguments.of(frame4, normalScore4)
         );
     }
 
