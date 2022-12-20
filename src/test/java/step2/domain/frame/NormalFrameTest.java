@@ -22,15 +22,10 @@ class NormalFrameTest {
     }
 
     private static Stream<Arguments> frameProvider() {
-        Score score1 = Score.from(4);
-        Score score2 = Score.from(3);
-        Score score3 = Score.from(2);
-        Score score4 = Score.from(1);
-
-        Scores normalScore1 = NormalScores.init().next(score1);
-        Scores normalScore2 = normalScore1.next(score2);
-        Scores normalScore3 = NormalScores.init().next(score3);
-        Scores normalScore4 = normalScore1.next(score4);
+        Scores normalScore1 = NormalScores.init().next(Score.from(4));
+        Scores normalScore2 = normalScore1.next(Score.from(3));
+        Scores normalScore3 = NormalScores.init().next(Score.from(2));
+        Scores normalScore4 = normalScore1.next(Score.from(1));
 
         Frame frame1 = NormalFrame.of(1, normalScore1, null);
         Frame frame2 = frame1.next(normalScore2);
