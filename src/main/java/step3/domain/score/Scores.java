@@ -27,4 +27,8 @@ public abstract class Scores {
     public Stream<Score> stream() {
         return Stream.of(firstScore, secondScore);
     }
+
+    public int totalScore() {
+        return firstScore.sum(secondScore);
+    }
 }
