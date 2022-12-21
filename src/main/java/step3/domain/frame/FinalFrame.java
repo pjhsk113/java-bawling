@@ -17,4 +17,14 @@ public class FinalFrame extends Frame {
     public Frame next(Scores scores) {
         return of(frame, scores, prevFrame);
     }
+
+    @Override
+    protected int calculateStrike() {
+        return 0;
+    }
+
+    @Override
+    protected int calculateSpared() {
+        return 0;
+    }
 }

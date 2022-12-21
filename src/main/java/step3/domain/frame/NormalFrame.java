@@ -1,7 +1,5 @@
 package step3.domain.frame;
 
-import step3.domain.frame.FinalFrame;
-import step3.domain.frame.Frame;
 import step3.domain.score.FinalScores;
 import step3.domain.score.NormalScores;
 import step3.domain.score.Scores;
@@ -42,5 +40,15 @@ public class NormalFrame extends Frame {
 
     private boolean isNormalFrame(int frame) {
         return frame < 10;
+    }
+
+    @Override
+    protected int calculateStrike() {
+        return 0;
+    }
+
+    @Override
+    protected int calculateSpared() {
+        return 0;
     }
 }
