@@ -1,6 +1,6 @@
 package step3;
 
-import step2.domain.BawlingGameExecutor;
+import step3.domain.BawlingGameExecutor;
 
 public class Application {
     public static void main(String[] args) {
