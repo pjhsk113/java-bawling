@@ -5,13 +5,15 @@ import step3.domain.score.NormalScores;
 import step3.domain.score.Scores;
 
 public class NormalFrame extends Frame {
+    private Frame nextFrame;
 
-    private NormalFrame(int frame, Scores scores, Frame prevFrame) {
-        super(frame, scores, prevFrame);
+    private NormalFrame(int frame, Scores scores, Frame nextFrame) {
+        super(frame, scores);
+        this.nextFrame = nextFrame;
     }
 
-    public static NormalFrame of(int frame, Scores scores, Frame prevFrame) {
-        return new NormalFrame(frame, scores, prevFrame);
+    public static NormalFrame of(int frame, Scores scores, Frame nextFrame) {
+        return new NormalFrame(frame, scores, nextFrame);
     }
 
     public static NormalFrame init() {
@@ -19,19 +21,19 @@ public class NormalFrame extends Frame {
     }
 
     @Override
-    public Frame next(Scores scores) {
-        Frame currentFrame = of(frame, scores, prevFrame);
+    public void next(Scores scores) {
+        this.scores = scores;
         if (isFrameNotOver(scores)) {
-            return currentFrame;
+            return ;
         }
 
         int nextFrame = frame + 1;
 
         if (isNormalFrame(nextFrame)) {
-            return of(nextFrame, NormalScores.init(), currentFrame);
+            of(nextFrame, NormalScores.init(), null);
         }
 
-        return FinalFrame.of(nextFrame, FinalScores.init(), currentFrame);
+        FinalFrame.of(nextFrame, FinalScores.init());
     }
 
     private boolean isFrameNotOver(Scores scores) {
@@ -50,5 +52,10 @@ public class NormalFrame extends Frame {
     @Override
     protected int calculateSpared() {
         return 0;
+    }
+
+    @Override
+    public Frame getNextFrame() {
+        return nextFrame;
     }
 }

@@ -7,18 +7,17 @@ import java.util.stream.Stream;
 
 public abstract class Frame {
     final int frame;
-    final Scores scores;
-    final Frame prevFrame;
+    Scores scores;
 
-    Frame(int frame, Scores scores, Frame prevFrame) {
+    Frame(int frame, Scores scores) {
         this.frame = frame;
         this.scores = scores;
-        this.prevFrame = prevFrame;
     }
 
-    abstract public Frame next(Scores scores);
     abstract protected int calculateStrike();
     abstract protected int calculateSpared();
+    abstract public void next(Scores scores);
+    abstract public Frame getNextFrame();
 
     public int getFrame() {
         return frame;
@@ -26,10 +25,6 @@ public abstract class Frame {
 
     public Scores getScores() {
         return scores;
-    }
-
-    public Frame getPrevFrame() {
-        return prevFrame;
     }
 
     public int calculateScore() {

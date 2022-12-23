@@ -5,17 +5,22 @@ import step3.domain.score.Scores;
 
 public class FinalFrame extends Frame {
 
-    private FinalFrame(int frame, Scores scores, Frame prevFrame) {
-        super(frame, scores, prevFrame);
+    private FinalFrame(int frame, Scores scores) {
+        super(frame, scores);
     }
 
-    public static FinalFrame of(int frame, Scores scores, Frame prevFrame) {
-        return new FinalFrame(frame, scores, prevFrame);
+    public static FinalFrame of(int frame, Scores scores) {
+        return new FinalFrame(frame, scores);
     }
 
     @Override
-    public Frame next(Scores scores) {
-        return of(frame, scores, prevFrame);
+    public void next(Scores scores) {
+        this.scores = scores;
+    }
+
+    @Override
+    public Frame getNextFrame() {
+        return null;
     }
 
     @Override
