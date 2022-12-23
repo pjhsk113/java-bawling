@@ -1,13 +1,13 @@
 package step3.domain;
 
-import step3.domain.Player;
-import step3.domain.Score;
 import step3.domain.frame.Frame;
 import step3.domain.frame.Frames;
 import step3.domain.frame.NormalFrame;
 import step3.domain.score.Scores;
 import step3.view.InputView;
 import step3.view.OutputView;
+
+import java.util.Optional;
 
 public class BawlingGameExecutor {
     public void play() {
@@ -17,7 +17,9 @@ public class BawlingGameExecutor {
 
         Frame frame = NormalFrame.init();
         while(isNormalFrame(frame)) {
-            frame = normalFrame(frame, player, frames);
+            normalFrame(frame, player, frames);
+            frame = Optional.ofNullable(frame.getNextFrame())
+                    .orElse(frame);
         }
         finalFrame(frame, player, frames);
     }
@@ -26,20 +28,19 @@ public class BawlingGameExecutor {
         return frame instanceof NormalFrame;
     }
 
-    private Frame normalFrame(Frame frame, Player player, Frames frames) {
-        Frame nextFrame = frameView(frame, player, frames);
-        if (nextFrame.getScores().isStrike()) {
-            nextFrame = frameView(nextFrame, player, frames);
+    private void normalFrame(Frame frame, Player player, Frames frames) {
+        frameView(frame, player, frames);
+        if (!frame.getScores().isStrike()) {
+            frameView(frame, player, frames);
         }
-        return nextFrame;
     }
 
     private void finalFrame(Frame frame, Player player, Frames frames) {
-        Frame nextFrame = frameView(frame, player, frames);
-        nextFrame = frameView(nextFrame, player, frames);
-        Scores scores = nextFrame.getScores();
+        frameView(frame, player, frames);
+        frameView(frame, player, frames);
+        Scores scores = frame.getScores();
         if (isExtraFrame(scores)) {
-            frameView(nextFrame, player, frames);
+            frameView(frame, player, frames);
         }
     }
 
@@ -47,11 +48,10 @@ public class BawlingGameExecutor {
         return scores.isStrike() || scores.isSpared();
     }
 
-    private Frame frameView(Frame frame, Player player, Frames frames) {
+    private void frameView(Frame frame, Player player, Frames frames) {
+        Scores scores = frame.getScores();
         Score score = InputView.inputFrameScore(frame.getFrame());
-        Scores scores = frame.getScores().next(score);
-        Frame nextFrame = frame.next(scores);
-        OutputView.printFrame(player, frames.addFrames(nextFrame));
-        return nextFrame;
+        frame.next(scores.next(score));
+        OutputView.printFrame(player, frames.addFrames(frame));
     }
 }
