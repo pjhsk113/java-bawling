@@ -8,6 +8,7 @@ import step3.domain.frame.Frames;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.*;
@@ -21,7 +22,8 @@ public class OutputView {
 
     public static void printFrame(Player player, Frames frames) {
         System.out.println(printFramesTemplate());
-        System.out.println(printScores(player, frames));
+        System.out.println(printScores(player, frames, frame -> String.format("%-4s", getScores(frame))));
+        System.out.println(printScores(player, frames, frame -> String.format("%-4s", calculationOf(frame))));
     }
 
     private static String printFramesTemplate() {
@@ -33,12 +35,12 @@ public class OutputView {
         );
     }
 
-    private static String printScores(Player player, Frames frames) {
+    private static String printScores(Player player, Frames frames, Function<Frame, String> mapper) {
         return String.format(
                 SCORES_FORMAT,
                 player.getName(),
                 frames.frameInfo()
-                        .map(frame -> String.format("%-4s", getScores(frame)))
+                        .map(mapper)
                         .collect(joining("|  "))
         );
     }
@@ -57,25 +59,18 @@ public class OutputView {
     private static String joiningScores(List<Score> scores) {
         return IntStream.range(0, scores.size())
                 .mapToObj(index -> scores.get(index) != null
-                        ? convertSymbol(scores, index)
+                        ? ScoreType.convertSymbol(scores, index)
                         : null)
                 .filter(Objects::nonNull)
                 .collect(joining("|"));
     }
 
-    private static String convertSymbol(List<Score> scores, int index) {
-        if (scores.get(index).isGutter()) {
-            return ScoreType.GUTTER.getSymbol();
+    private static String calculationOf(Frame frame) {
+        if (frame == null) {
+            return "";
         }
-
-        if (index == 1 && scores.get(0).isSpare(scores.get(1))) {
-            return ScoreType.SPARED.getSymbol();
-        }
-
-        if (scores.get(index).isStrike()) {
-            return ScoreType.STRIKE.getSymbol();
-        }
-
-        return scores.get(index).toString();
+        int calculatedScore = frame.calculateScore();
+        return calculatedScore == -1 ? "" : String.valueOf(calculatedScore);
     }
+
 }
