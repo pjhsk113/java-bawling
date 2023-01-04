@@ -4,6 +4,9 @@ import step3.domain.score.FinalScores;
 import step3.domain.score.NormalScores;
 import step3.domain.score.Scores;
 
+import java.util.Objects;
+import java.util.stream.Stream;
+
 public class NormalFrame extends Frame {
     private Frame nextFrame;
 
@@ -46,12 +49,35 @@ public class NormalFrame extends Frame {
 
     @Override
     protected int calculateStrike() {
-        return 0;
+        if (nextFrame == null || !nextFrame.scores.isFrameOver()) {
+            return -1;
+        }
+        if (nextFrame.scores.isStrike()) {
+            return nextFrame.calculateTwoStrike(scores.totalScore());
+        }
+        return scores.totalScore() + nextFrame.scores.totalScore();
+    }
+
+    @Override
+    protected int calculateTwoStrike(int totalScore) {
+        if (!nextFrame.scores.isFrameOver()) {
+            return -1;
+        }
+        return Stream.concat(scores.stream(), nextFrame.scores.stream())
+                .filter(Objects::nonNull)
+                .limit(2)
+                .reduce(totalScore, (total, score) -> total + score.getValue(), Integer::sum);
     }
 
     @Override
     protected int calculateSpared() {
-        return 0;
+        if (nextFrame == null || !nextFrame.scores.isFrameOver()) {
+            return -1;
+        }
+        return nextFrame.scores
+                .stream()
+                .limit(1)
+                .reduce(scores.totalScore(), (total, score) -> total + score.getValue(), Integer::sum);
     }
 
     @Override
