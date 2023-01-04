@@ -15,6 +15,7 @@ public abstract class Frame {
     }
 
     abstract protected int calculateStrike();
+    abstract protected int calculateTwoStrike(int totalScore);
     abstract protected int calculateSpared();
     abstract public void next(Scores scores);
     abstract public Frame getNextFrame();
