@@ -37,6 +37,10 @@ public class Score {
         return score + value.score;
     }
 
+    public int getValue() {
+        return score;
+    }
+
     @Override
     public String toString() {
         return String.format("%d", score);
