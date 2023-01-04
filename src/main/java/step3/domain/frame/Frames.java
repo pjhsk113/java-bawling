@@ -21,20 +21,28 @@ public class Frames {
         return new Frames(new ArrayList<>());
     }
 
-    public Frames addFrames(Frame currentFrame) {
+    public static Frames addFrames(Frame currentFrame) {
         List<Frame> frames = new ArrayList<>();
         Frame frame = currentFrame;
 
         while(frame != null) {
             frames.add(frame);
-            frame = frame.getPrevFrame();
+            frame = frame.getNextFrame();
         }
-        Collections.reverse(frames);
         return from(frames);
     }
 
-    public Stream<Frame> frameInfo() {
+    public int size() {
+        return frames.size();
+    }
+
+    public Frame get(int index) {
+        return frames.get(index);
+    }
+
+    public static Stream<Frame> frameInfo(Frame frame) {
+        Frames currentFrames = addFrames(frame);
         return IntStream.range(0, 10)
-                .mapToObj(index -> index < frames.size() ? frames.get(index) : null);
+                .mapToObj(index -> index < currentFrames.size() ? currentFrames.get(index) : null);
     }
 }
