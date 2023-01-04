@@ -1,6 +1,7 @@
 package step3.view;
 
 import step3.domain.Player;
+import step3.domain.PlayerFrames;
 import step3.domain.Score;
 import step3.domain.ScoreType;
 import step3.domain.frame.Frame;
@@ -20,10 +21,11 @@ public class OutputView {
     private OutputView() {
     }
 
-    public static void printFrame(Player player, Frames frames) {
+    public static void printFrame(PlayerFrames playerFrames) {
+        String name = playerFrames.getPlayer().getName();
         System.out.println(printFramesTemplate());
-        System.out.println(printScores(player, frames, frame -> String.format("%-4s", getScores(frame))));
-        System.out.println(printScores(player, frames, frame -> String.format("%-4s", calculationOf(frame))));
+        System.out.println(printScores(playerFrames, name, frame -> String.format("%-4s", getScores(frame))));
+        System.out.println(printScores(playerFrames, "", frame -> String.format("%-4s", calculationOf(frame))));
     }
 
     private static String printFramesTemplate() {
@@ -35,11 +37,11 @@ public class OutputView {
         );
     }
 
-    private static String printScores(Player player, Frames frames, Function<Frame, String> mapper) {
+    private static String printScores(PlayerFrames playerFrames, String name, Function<Frame, String> mapper) {
         return String.format(
                 SCORES_FORMAT,
-                player.getName(),
-                frames.frameInfo()
+                name,
+                playerFrames.getFrameInfo()
                         .map(mapper)
                         .collect(joining("|  "))
         );
