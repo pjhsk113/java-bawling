@@ -3,6 +3,7 @@ package step3.domain.frame;
 import step3.domain.score.Scores;
 
 import java.util.Objects;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public abstract class Frame {
@@ -29,11 +30,17 @@ public abstract class Frame {
     }
 
     public int calculateScore() {
-        return Stream.of(scores.isFrameOver() ? -1 : null,
-                        scores.isStrike() ? calculateStrike() : null,
-                        scores.isSpared() ? calculateSpared() : null)
+        boolean isNotFrameOver = scores == null || !scores.isFrameOver();
+        return Stream.of(isEmpty(isNotFrameOver, () -> -1),
+                        isEmpty(!isNotFrameOver && scores.isStrike(), this::calculateStrike),
+                        isEmpty(!isNotFrameOver && !scores.isStrike() && scores.isSpared(), this::calculateSpared))
                 .filter(Objects::nonNull)
                 .findFirst()
-                .orElseGet(scores::totalScore);
+                .orElse(scores::totalScore)
+                .get();
+    }
+
+    private Supplier<Integer> isEmpty (boolean type, Supplier<Integer> calculator) {
+        return type ? calculator : null;
     }
 }
