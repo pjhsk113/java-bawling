@@ -29,6 +29,11 @@ public class FinalFrame extends Frame {
     }
 
     @Override
+    protected int calculateTwoStrike(int totalScore) {
+        return 0;
+    }
+
+    @Override
     protected int calculateSpared() {
         return 0;
     }
