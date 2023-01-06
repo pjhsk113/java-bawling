@@ -30,13 +30,11 @@ public class NormalFrame extends Frame {
             return ;
         }
 
-        int nextFrame = frame + 1;
+        int nextFrameIndex = frame + 1;
 
-        if (isNormalFrame(nextFrame)) {
-            of(nextFrame, NormalScores.init(), null);
-        }
-
-        FinalFrame.of(nextFrame, FinalScores.init());
+        this.nextFrame = isNormalFrame(nextFrameIndex)
+                ? of(nextFrameIndex, NormalScores.init(), null)
+                : FinalFrame.of(nextFrameIndex, FinalScores.init());
     }
 
     private boolean isFrameNotOver(Scores scores) {
