@@ -58,7 +58,7 @@ public class NormalFrame extends Frame {
 
     @Override
     protected int calculateTwoStrike(int totalScore) {
-        if (!nextFrame.scores.isFrameOver()) {
+        if (nextFrame.scores.isEmpty()) {
             return -1;
         }
         return Stream.concat(scores.stream(), nextFrame.scores.stream())
