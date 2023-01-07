@@ -1,9 +1,13 @@
 package step3.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Score {
     private static final int MAX_SCORE = 10;
     private static final int MIN_SCORE = 0;
 
+    private static final Map<Integer, Score> FACTORY = new HashMap<>();
     private final int score;
 
     private Score(int score) {
@@ -13,6 +17,11 @@ public class Score {
     public static Score from(int score) {
         validate(score);
         return new Score(score);
+    }
+
+    public static Score valueOf(int score) {
+        validate(score);
+        return FACTORY.computeIfAbsent(score, Score::new);
     }
 
     private static void validate(int score) {
@@ -26,16 +35,19 @@ public class Score {
     }
 
     public boolean isSpare(Score secondScore) {
-        return sum(secondScore) == MAX_SCORE;
+        return (score + secondScore.getValue()) == MAX_SCORE;
     }
-
 
     public boolean isGutter() {
         return score == MIN_SCORE;
     }
 
-    public int sum(Score value) {
-        return score + value.score;
+    public Score sum(Score value) {
+        if (value == null) {
+            return this;
+        }
+
+        return valueOf(score + value.score);
     }
 
     public int getValue() {
