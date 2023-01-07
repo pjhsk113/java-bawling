@@ -14,7 +14,7 @@ public abstract class Scores {
     }
 
     abstract public Scores next(Score score);
-    abstract public boolean isFrameOver();
+    abstract public Stream<Score> stream();
 
     public boolean isStrike() {
         return firstScore != null && firstScore.isStrike();
@@ -24,11 +24,15 @@ public abstract class Scores {
         return firstScore.isSpare(secondScore);
     }
 
-    public Stream<Score> stream() {
-        return Stream.of(firstScore, secondScore);
+    public boolean isEmpty() {
+        return firstScore == null && secondScore == null;
     }
 
     public int totalScore() {
-        return firstScore.sum(secondScore);
+        return firstScore.sum(secondScore).getValue();
+    }
+
+    public boolean isFrameOver() {
+        return (firstScore != null && secondScore != null) || isStrike();
     }
 }

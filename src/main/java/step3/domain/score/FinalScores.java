@@ -1,7 +1,8 @@
 package step3.domain.score;
 
 import step3.domain.Score;
-import step3.domain.score.Scores;
+
+import java.util.stream.Stream;
 
 public class FinalScores extends Scores {
     private final Score extraScore;
@@ -20,13 +21,18 @@ public class FinalScores extends Scores {
     }
 
     private static void validate(Score firstScore, Score secondScore) {
-        if (!firstScore.isStrike() && firstScore.sum(secondScore) > 10) {
+        if (!firstScore.isStrike() && firstScore.sum(secondScore).getValue() > 10) {
             throw new IllegalArgumentException("프레임 별 투구 점수는 10을 넘을 수 없습니다.");
         }
     }
 
     public static FinalScores init() {
         return of(null, null);
+    }
+
+    @Override
+    public Stream<Score> stream() {
+        return Stream.of(firstScore, secondScore, extraScore);
     }
 
     @Override
@@ -40,10 +46,5 @@ public class FinalScores extends Scores {
         }
 
         return new FinalScores(firstScore, secondScore, score);
-    }
-
-    @Override
-    public boolean isFrameOver() {
-        return firstScore != null && secondScore != null && extraScore != null;
     }
 }
