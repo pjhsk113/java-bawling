@@ -29,6 +29,7 @@ public class Score {
         return sum(secondScore) == MAX_SCORE;
     }
 
+
     public boolean isGutter() {
         return score == MIN_SCORE;
     }
