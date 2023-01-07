@@ -31,16 +31,19 @@ public abstract class Frame {
 
     public int calculateScore() {
         boolean isNotFrameOver = scores == null || !scores.isFrameOver();
+        boolean isStrike = !isNotFrameOver && scores.isStrike();
+        boolean isSpared = !isNotFrameOver && !isStrike && scores.isSpared();
+
         return Stream.of(isEmpty(isNotFrameOver, () -> -1),
-                        isEmpty(!isNotFrameOver && scores.isStrike(), this::calculateStrike),
-                        isEmpty(!isNotFrameOver && !scores.isStrike() && scores.isSpared(), this::calculateSpared))
+                        isEmpty(isStrike, this::calculateStrike),
+                        isEmpty(isSpared, this::calculateSpared))
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElse(scores::totalScore)
                 .get();
     }
 
-    private Supplier<Integer> isEmpty (boolean type, Supplier<Integer> calculator) {
+    private Supplier<Integer> isEmpty(boolean type, Supplier<Integer> calculator) {
         return type ? calculator : null;
     }
 }
