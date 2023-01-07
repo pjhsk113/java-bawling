@@ -1,18 +1,17 @@
 package step3.view;
 
-import step3.domain.Player;
 import step3.domain.PlayerFrames;
 import step3.domain.Score;
 import step3.domain.ScoreType;
 import step3.domain.frame.Frame;
-import step3.domain.frame.Frames;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 public class OutputView {
     private static final String ROUND_FORMAT = "| NAME |%s|";
@@ -52,10 +51,9 @@ public class OutputView {
             return "";
         }
 
-        return joiningScores(
-                frame.getScores()
-                        .stream()
-                        .collect(toList()));
+        return joiningScores(frame.getScores()
+                .stream()
+                .collect(toList()));
     }
 
     private static String joiningScores(List<Score> scores) {
