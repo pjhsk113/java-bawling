@@ -22,7 +22,7 @@ public enum ScoreType {
             return ScoreType.GUTTER.getSymbol();
         }
 
-        if (index == 1 && scores.get(0).isSpare(scores.get(1))) {
+        if (index == 1 && !scores.get(0).isStrike() && scores.get(0).isSpare(scores.get(1))) {
             return ScoreType.SPARED.getSymbol();
         }
 
