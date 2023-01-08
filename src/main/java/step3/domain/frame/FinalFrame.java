@@ -1,7 +1,13 @@
 package step3.domain.frame;
 
 
+import step3.domain.Score;
+import step3.domain.score.FinalScores;
 import step3.domain.score.Scores;
+
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 public class FinalFrame extends Frame {
 
@@ -25,16 +31,28 @@ public class FinalFrame extends Frame {
 
     @Override
     protected int calculateStrike() {
-        return 0;
+        FinalScores finalScores = (FinalScores) scores;
+        if (!finalScores.filledBonus()) {
+            return -1;
+        }
+
+        return scores.stream()
+                .reduce(0, (total, score) -> total + score.getValue(), Integer::sum);
     }
 
     @Override
     protected int calculateTwoStrike(int totalScore) {
-        return 0;
+        List<Score> scoreList = scores.stream().collect(toList());
+        Score firstScore = scoreList.get(0);
+        Score secondScore = scoreList.get(1);
+        if (firstScore == null || secondScore == null) {
+            return -1;
+        }
+        return totalScore + firstScore.getValue() + secondScore.getValue();
     }
 
     @Override
     protected int calculateSpared() {
-        return 0;
+        return calculateStrike();
     }
 }
