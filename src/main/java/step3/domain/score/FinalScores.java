@@ -30,6 +30,10 @@ public class FinalScores extends Scores {
         return of(null, null);
     }
 
+    public boolean filledBonus() {
+        return extraScore != null;
+    }
+
     @Override
     public Stream<Score> stream() {
         return Stream.of(firstScore, secondScore, extraScore);
