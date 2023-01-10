@@ -16,7 +16,7 @@ public class Score {
 
     public static Score from(int score) {
         validate(score);
-        return new Score(score);
+        return valueOf(score);
     }
 
     public static Score valueOf(int score) {
@@ -35,7 +35,7 @@ public class Score {
     }
 
     public boolean isSpare(Score secondScore) {
-        return (score + secondScore.getValue()) == MAX_SCORE;
+        return secondScore != null && (score + secondScore.getValue()) == MAX_SCORE;
     }
 
     public boolean isGutter() {
