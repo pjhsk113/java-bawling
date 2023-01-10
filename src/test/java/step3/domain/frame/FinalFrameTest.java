@@ -30,4 +30,68 @@ class FinalFrameTest {
         );
     }
 
+    @DisplayName("Miss 점수 계산 테스트")
+    @ParameterizedTest
+    @MethodSource("provideFrameAndMissScore")
+    public void Miss_계산_테스트(FinalFrame frame, int expected) {
+        assertEquals(expected, frame.calculateScore());
+    }
+
+    private static Stream<Arguments> provideFrameAndMissScore() {
+        return Stream.of(
+                Arguments.of(
+                        FinalFrame.of(10, FinalScores.of(Score.valueOf(1), Score.valueOf(2))),
+                        3
+                ),
+                Arguments.of(
+                        FinalFrame.of(10, FinalScores.of(Score.valueOf(0), Score.valueOf(9))),
+                        9
+                ),
+                Arguments.of(
+                        FinalFrame.of(10, FinalScores.of(Score.valueOf(8), Score.valueOf(0))),
+                        8
+                ),
+                Arguments.of(
+                        FinalFrame.of(10, FinalScores.of(Score.valueOf(5), Score.valueOf(4))),
+                        9
+                ),
+                Arguments.of(
+                        FinalFrame.of(10, FinalScores.of(Score.valueOf(0), Score.valueOf(0))),
+                        0
+                )
+        );
+    }
+
+    @DisplayName("Spared 점수 계산 테스트")
+    @ParameterizedTest
+    @MethodSource("provideFrameAndSparedScore")
+    public void Spared_계산_테스트(FinalFrame frame, int expected) {
+        assertEquals(expected, frame.calculateScore());
+    }
+
+    private static Stream<Arguments> provideFrameAndSparedScore() {
+        return Stream.of(
+                Arguments.of(
+                        FinalFrame.of(10, FinalScores.of(Score.valueOf(0), Score.valueOf(10), Score.valueOf(5))),
+                        15
+                ),
+                Arguments.of(
+                        FinalFrame.of(10, FinalScores.of(Score.valueOf(9), Score.valueOf(1), Score.valueOf(10))),
+                        20
+                ),
+                Arguments.of(
+                        FinalFrame.of(10, FinalScores.of(Score.valueOf(5), Score.valueOf(5), Score.valueOf(0))),
+                        10
+                ),
+                Arguments.of(
+                        FinalFrame.of(10, FinalScores.of(Score.valueOf(4), Score.valueOf(6), Score.valueOf(7))),
+                        17
+                ),
+                Arguments.of(
+                        FinalFrame.of(10, FinalScores.of(Score.valueOf(4), Score.valueOf(6), null)),
+                        -1
+                )
+        );
+    }
+
 }
