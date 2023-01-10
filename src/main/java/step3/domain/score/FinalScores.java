@@ -20,6 +20,10 @@ public class FinalScores extends Scores {
         return new FinalScores(firstScore, secondScore, null);
     }
 
+    public static FinalScores of(Score firstScore, Score secondScore, Score bonusScore) {
+        return new FinalScores(firstScore, secondScore, bonusScore);
+    }
+
     private static void validate(Score firstScore, Score secondScore) {
         if (!firstScore.isStrike() && firstScore.sum(secondScore).getValue() > 10) {
             throw new IllegalArgumentException("프레임 별 투구 점수는 10을 넘을 수 없습니다.");
