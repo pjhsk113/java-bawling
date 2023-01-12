@@ -1,11 +1,10 @@
-package step3;
+package step3.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import step3.domain.Score;
 import step3.domain.frame.Frame;
 import step3.domain.frame.NormalFrame;
 import step3.domain.score.NormalScores;
@@ -72,6 +71,34 @@ class NormalFrameTest {
                 Arguments.of(
                         NormalFrame.of(1, NormalScores.of(Score.valueOf(0), Score.valueOf(0)), null),
                         0
+                )
+        );
+    }
+
+    @DisplayName("Spared 점수 계산 테스트")
+    @ParameterizedTest
+    @MethodSource("frameAndSparedScoreProvider")
+    public void frame_spared_calc(NormalFrame frame, int expected) {
+        assertEquals(expected, frame.calculateScore());
+    }
+
+    private static Stream<Arguments> frameAndSparedScoreProvider() {
+        return Stream.of(
+                Arguments.of(NormalFrame.of(1, NormalScores.of(Score.valueOf(0), Score.valueOf(10)),
+                             NormalFrame.of(2, NormalScores.of(Score.valueOf(5), null), null)),
+                        15
+                ),
+                Arguments.of(NormalFrame.of(1, NormalScores.of(Score.valueOf(9), Score.valueOf(1)),
+                             NormalFrame.of(2, NormalScores.of(Score.valueOf(10), null), null)),
+                        20
+                ),
+                Arguments.of(NormalFrame.of(1, NormalScores.of(Score.valueOf(5), Score.valueOf(5)),
+                             NormalFrame.of(2, NormalScores.of(Score.valueOf(0), null), null)),
+                        10
+                ),
+                Arguments.of(NormalFrame.of(1, NormalScores.of(Score.valueOf(4), Score.valueOf(6)),
+                             NormalFrame.of(2, NormalScores.init(), null)),
+                        -1
                 )
         );
     }

@@ -1,10 +1,11 @@
-package step3.domain.frame;
+package step3.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import step3.domain.Score;
+import step3.domain.frame.FinalFrame;
+import step3.domain.frame.Frame;
 import step3.domain.score.FinalScores;
 
 import java.util.stream.Stream;
@@ -33,7 +34,7 @@ class FinalFrameTest {
     @DisplayName("Miss 점수 계산 테스트")
     @ParameterizedTest
     @MethodSource("provideFrameAndMissScore")
-    public void Miss_계산_테스트(FinalFrame frame, int expected) {
+    public void final_frame_miss_calc(FinalFrame frame, int expected) {
         assertEquals(expected, frame.calculateScore());
     }
 
@@ -65,7 +66,7 @@ class FinalFrameTest {
     @DisplayName("Spared 점수 계산 테스트")
     @ParameterizedTest
     @MethodSource("provideFrameAndSparedScore")
-    public void Spared_계산_테스트(FinalFrame frame, int expected) {
+    public void final_frame_spared_calc(FinalFrame frame, int expected) {
         assertEquals(expected, frame.calculateScore());
     }
 
