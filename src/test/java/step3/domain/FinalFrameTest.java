@@ -10,7 +10,7 @@ import step3.domain.score.FinalScores;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class FinalFrameTest {
 
@@ -18,7 +18,7 @@ class FinalFrameTest {
     @ParameterizedTest
     @MethodSource("finalFrameAndNextFrameProvider")
     void final_frame_next_frame_init_test(Frame frame, Frame nextFrame) {
-        assertEquals(nextFrame, frame.getNextFrame());
+        assertThat(frame.getNextFrame()).isEqualTo(nextFrame);
     }
 
     private static Stream<Arguments> finalFrameAndNextFrameProvider() {
@@ -35,7 +35,7 @@ class FinalFrameTest {
     @ParameterizedTest
     @MethodSource("provideFrameAndMissScore")
     public void final_frame_miss_calc(FinalFrame frame, int expected) {
-        assertEquals(expected, frame.calculateScore());
+        assertThat(frame.calculateScore()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> provideFrameAndMissScore() {
@@ -67,7 +67,7 @@ class FinalFrameTest {
     @ParameterizedTest
     @MethodSource("provideFrameAndSparedScore")
     public void final_frame_spared_calc(FinalFrame frame, int expected) {
-        assertEquals(expected, frame.calculateScore());
+        assertThat(frame.calculateScore()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> provideFrameAndSparedScore() {

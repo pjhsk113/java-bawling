@@ -11,7 +11,6 @@ import step3.domain.score.Scores;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NormalScoresTest {
 
@@ -99,7 +98,7 @@ class NormalScoresTest {
     @ParameterizedTest
     @MethodSource("scoresSumProvider")
     void scores_total_score_test(NormalScores scores, int expected) {
-        assertEquals(expected, scores.totalScore());
+        assertThat(scores.totalScore()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> scoresSumProvider() {

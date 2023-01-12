@@ -11,6 +11,7 @@ import step3.domain.score.NormalScores;
 
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NormalFrameTest {
@@ -20,7 +21,7 @@ class NormalFrameTest {
     void next_frame_null_init() {
         Frame frame = NormalFrame.init();
         frame.next(frame.getScores().next(Score.valueOf(1)));
-        assertEquals(null, frame.getNextFrame());
+        assertThat(frame.getNextFrame()).isEqualTo(null);
     }
 
     @DisplayName("다음 프레임 정상 생성 테스트")
@@ -47,7 +48,7 @@ class NormalFrameTest {
     @ParameterizedTest
     @MethodSource("frameAndScoreProvider")
     public void frame_calc(NormalFrame frame, int expected) {
-        assertEquals(expected, frame.calculateScore());
+        assertThat(frame.calculateScore()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> frameAndScoreProvider() {
@@ -79,7 +80,7 @@ class NormalFrameTest {
     @ParameterizedTest
     @MethodSource("frameAndSparedScoreProvider")
     public void frame_spared_calc(NormalFrame frame, int expected) {
-        assertEquals(expected, frame.calculateScore());
+        assertThat(frame.calculateScore()).isEqualTo(expected);
     }
 
     private static Stream<Arguments> frameAndSparedScoreProvider() {
