@@ -104,4 +104,40 @@ class NormalFrameTest {
         );
     }
 
+    @DisplayName("strike 점수 계산 테스트")
+    @ParameterizedTest
+    @MethodSource("strikeScoreProvider")
+    public void strike_calc_test(NormalFrame frame, int expected) {
+        assertThat(frame.calculateScore()).isEqualTo(expected);
+    }
+
+    private static Stream<Arguments> strikeScoreProvider() {
+        return Stream.of(
+                Arguments.of(
+                        NormalFrame.of(1, NormalScores.of(Score.valueOf(10), null),
+                                NormalFrame.of(2, NormalScores.of(Score.valueOf(5), Score.valueOf(4)), null)),
+                        19
+                ),
+                Arguments.of(
+                        NormalFrame.of(1, NormalScores.of(Score.valueOf(10), null),
+                                NormalFrame.of(2, NormalScores.of(Score.valueOf(0), Score.valueOf(10)), null)),
+                        20
+                ),
+                Arguments.of(
+                        NormalFrame.of(1, NormalScores.of(Score.valueOf(10), null),
+                                NormalFrame.of(2, NormalScores.of(Score.valueOf(0), Score.valueOf(5)), null)),
+                        15
+                ),
+                Arguments.of(
+                        NormalFrame.of(1, NormalScores.of(Score.valueOf(10), null),
+                                NormalFrame.of(2, NormalScores.init(), null)),
+                        -1
+                ),
+                Arguments.of(
+                        NormalFrame.of(1, NormalScores.of(Score.valueOf(10), null),
+                                NormalFrame.of(2, NormalScores.of(Score.valueOf(5), null), null)),
+                        -1
+                )
+        );
+    }
 }
