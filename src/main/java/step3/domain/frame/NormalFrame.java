@@ -69,7 +69,7 @@ public class NormalFrame extends Frame {
 
     @Override
     protected int calculateSpared() {
-        if (nextFrame == null || !nextFrame.scores.isFrameOver()) {
+        if (nextFrame == null || nextFrame.scores.isEmpty()) {
             return -1;
         }
         return nextFrame.scores
