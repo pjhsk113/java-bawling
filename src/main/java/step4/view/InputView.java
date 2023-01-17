@@ -18,8 +18,8 @@ public class InputView {
         return SCANNER.nextInt();
     }
 
-    public static Player inputPlayerName() {
-        System.out.println(INPUT_PLAYER_MESSAGE);
+    public static Player inputPlayerName(int index) {
+        String.format(INPUT_PLAYER_MESSAGE, index);
         return Player.from(SCANNER.nextLine());
     }
 
