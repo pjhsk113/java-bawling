@@ -6,11 +6,17 @@ import step4.domain.Score;
 import java.util.Scanner;
 
 public class InputView {
-    private static final String INPUT_PLAYER_MESSAGE = "플레이어 이름은(3 english letters)?";
+    private static final String INPUT_PLAYER_NUMBER = "How many people?";
+    private static final String INPUT_PLAYER_MESSAGE = "플레이어 %d의 이름은(3 english letters)?:";
     private static final String INPUT_PITCHING_MESSAGE = "%d프레임 투구";
     private static final Scanner SCANNER = new Scanner(System.in);
 
     private InputView() { }
+
+    public static int inputPlayerCount() {
+        System.out.println(INPUT_PLAYER_NUMBER);
+        return SCANNER.nextInt();
+    }
 
     public static Player inputPlayerName() {
         System.out.println(INPUT_PLAYER_MESSAGE);
